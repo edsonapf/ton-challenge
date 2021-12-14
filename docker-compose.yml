@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  ton-challenge-api:
+    container_name: ton-challenge-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: sh -c "yarn start"
+    environment:
+      API_PORT: 3000
+      COUNTAPI_URL: https://api.countapi.xyz
+      COUNTAPI_NAMESPACE: ton-challenge
+    stdin_open: true
+    depends_on:
+      - database
+    networks:
+      - default
+    ports:
+      - ${API_PORT}:${API_PORT}
+    # restart: on-failure
+  database:
+    image: postgres
+    container_name: ton-challenge-db
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ton_challenge_db
+    networks:
+      - default

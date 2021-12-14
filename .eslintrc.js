@@ -19,5 +19,8 @@ module.exports = {
     'import/extensions': 'off',
     'class-methods-use-this': 'off',
     'no-promise-executor-return': 'off',
+    'no-useless-constructor': 'off',
+    'no-empty-function': 'off',
+    'no-unused-vars': 'off',
   },
 };

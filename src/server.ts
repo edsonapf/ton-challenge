@@ -1,6 +1,9 @@
 import express, {
   Request, Response, NextFunction, ErrorRequestHandler,
 } from 'express';
+import morgan from 'morgan';
+import helmet from 'helmet';
+import cors from 'cors';
 import { users, visits } from './routes';
 
 require('dotenv').config();
@@ -10,6 +13,9 @@ const initiateServer = () => {
   const server = express();
 
   server.use(express.json());
+  server.use(cors());
+  server.use(morgan('dev'));
+  server.use(helmet());
 
   server.use('/visits', visits);
   server.use('/users', users);

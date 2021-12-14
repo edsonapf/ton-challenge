@@ -17,7 +17,7 @@ class UsersController {
       return response.status(404).json({ error: 'User not found' });
     }
 
-    return response.json({ user: userFound });
+    return response.json(userFound);
   };
 
   createUser = async (request: Request, response: Response) => {

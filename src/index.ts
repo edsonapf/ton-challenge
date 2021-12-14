@@ -1,7 +1,9 @@
 import express from 'express';
 import { users, visits } from './routes';
 
-const PORT = 3000;
+require('dotenv').config();
+
+const PORT = process.env.API_PORT || 3000;
 const server = express();
 
 server.use(express.json());

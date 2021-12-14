@@ -26,7 +26,7 @@ class UsersController {
       return response.status(400).json({ errors: fieldsValidation.array() });
     }
 
-    const { name, email, phone } = request.body;
+    const { name, email } = request.body;
 
     if (!name) {
       return response.status(400).json({ error: 'Field name is required' });
@@ -37,9 +37,9 @@ class UsersController {
       return response.status(400).json({ error: 'User with this email already exists' });
     }
 
-    const newUser = await this.usersRepository.createUser(name, email, phone);
+    const newUser = await this.usersRepository.createUser(name, email);
 
-    return response.json({ user: newUser });
+    return response.json(newUser);
   };
 }
 

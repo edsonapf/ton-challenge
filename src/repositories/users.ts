@@ -1,35 +1,29 @@
-import { v4 } from 'uuid';
-
-interface User {
-  id: string;
-  name: string;
-  email: string;
-}
-
-const usersData: User[] = [];
+import EntityManagerDb from '../database/entityManagerDb';
+import { Users } from '../models/users';
 
 class UsersRepository {
-  findUserById = async (id: string) => {
-    const userFound = usersData.find((user) => user.id === id);
+  constructor(private readonly entityManagerDb: EntityManagerDb) {}
 
-    return new Promise((resolve) => resolve(userFound));
+  findUserById = async (id: string) => {
+    const userFound = await this.entityManagerDb.getEntityManager().findOne(Users, id);
+
+    return userFound;
   };
 
   findUserByEmail = async (email: string) => {
-    const userFound = usersData.find((user) => user.email === email);
+    const userFound = await this.entityManagerDb.getEntityManager().findOne(Users, { email });
 
-    return new Promise((resolve) => resolve(userFound));
+    return userFound;
   };
 
-  createUser = async (name: string, email: string, phone: string) => {
-    const newUser: User = {
-      id: v4(),
+  createUser = async (name: string, email: string) => {
+    const userEntity = this.entityManagerDb.getEntityManager().create(Users, {
       name,
       email,
-    };
+    });
+    const userCreated = await this.entityManagerDb.getEntityManager().save(userEntity);
 
-    usersData.push(newUser);
-    return new Promise((resolve) => resolve(newUser));
+    return userCreated;
   };
 }
 

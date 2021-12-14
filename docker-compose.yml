@@ -28,7 +28,7 @@ services:
       - default
     ports:
       - ${API_PORT}:${API_PORT}
-    # restart: on-failure
+    restart: on-failure
   database:
     image: postgres
     container_name: ton-challenge-db

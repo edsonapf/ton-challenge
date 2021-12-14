@@ -1,33 +1,46 @@
 import { Request, Response } from 'express';
+import { validationResult } from 'express-validator';
 import { UsersRepository } from '../repositories';
 
 class UsersController {
-  async findUserById(request: Request, response: Response) {
+  constructor(private readonly usersRepository: UsersRepository) {}
+
+  findUserById = async (request: Request, response: Response) => {
+    const fieldsValidation = validationResult(request);
+    if (!fieldsValidation.isEmpty()) {
+      return response.status(400).json({ errors: fieldsValidation.array() });
+    }
+
     const { id } = request.params;
-    const userFound = await UsersRepository.findUserById(id);
+    const userFound = await this.usersRepository.findUserById(id);
     if (!userFound) {
       return response.status(404).json({ error: 'User not found' });
     }
 
     return response.json({ user: userFound });
-  }
+  };
 
-  async createUser(request: Request, response: Response) {
+  createUser = async (request: Request, response: Response) => {
+    const fieldsValidation = validationResult(request);
+    if (!fieldsValidation.isEmpty()) {
+      return response.status(400).json({ errors: fieldsValidation.array() });
+    }
+
     const { name, email, phone } = request.body;
 
     if (!name) {
       return response.status(400).json({ error: 'Field name is required' });
     }
 
-    const userByEmailExists = await UsersRepository.findUserByEmail(email);
+    const userByEmailExists = await this.usersRepository.findUserByEmail(email);
     if (userByEmailExists) {
       return response.status(400).json({ error: 'User with this email already exists' });
     }
 
-    const newUser = await UsersRepository.createUser(name, email, phone);
+    const newUser = await this.usersRepository.createUser(name, email, phone);
 
     return response.json({ user: newUser });
-  }
+  };
 }
 
-export default new UsersController();
+export default UsersController;

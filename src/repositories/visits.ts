@@ -12,12 +12,8 @@ class VisitsRepository {
   }
 
   async getVisits() {
-    try {
-      const { data: { value } } = await countApi.get(`/get/${countApiNamespace}`);
-      return value || 0;
-    } catch {
-      throw new Error('Error when try to get visits');
-    }
+    const { data: { value } } = await countApi.get(`/get/${countApiNamespace}`);
+    return value || 0;
   }
 }
 

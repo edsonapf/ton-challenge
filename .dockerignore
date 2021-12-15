@@ -6,3 +6,4 @@ tmp/
 temp/
 coverage/
 npm-debug.log
+.env*

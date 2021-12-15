@@ -23,5 +23,6 @@ module.exports = {
     'no-empty-function': 'off',
     'no-unused-vars': 'off',
     'import/prefer-default-export': 'off',
+    radix: 'off',
   },
 };

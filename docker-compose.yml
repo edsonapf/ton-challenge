@@ -6,9 +6,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        API_PORT: $API_PORT
     command: sh -c "yarn typeorm migration:run && yarn start"
     environment:
-      API_PORT: 3001
+      API_PORT: 3000
       COUNTAPI_URL: https://api.countapi.xyz
       COUNTAPI_NAMESPACE: ton-challenge
       TYPEORM_CONNECTION: postgres
@@ -18,8 +20,8 @@ services:
       TYPEORM_DATABASE: ton_challenge_db
       TYPEORM_PORT: 5432
       TYPEORM_LOGGING: "true"
-      TYPEORM_ENTITIES: ./src/models/*.ts
-      TYPEORM_MIGRATIONS: ./src/database/migrations/*.ts
+      TYPEORM_ENTITIES: ./src/models/*.js
+      TYPEORM_MIGRATIONS: ./src/database/migrations/*.js
       TYPEORM_MIGRATIONS_DIR: ./src/database/migrations
     stdin_open: true
     depends_on:
@@ -27,7 +29,7 @@ services:
     networks:
       - default
     ports:
-      - ${API_PORT}:${API_PORT}
+      - "${API_PORT}:${API_PORT}"
     restart: on-failure
   database:
     image: postgres

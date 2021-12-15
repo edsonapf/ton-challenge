@@ -17,9 +17,11 @@ const options = {
     migrationsDir: process.env.TYPEORM_MIGRATIONS_DIR,
   },
   logging: process.env.TYPEORM_LOGGING === 'true',
-  ssl: {
-    rejectUnauthorized: false,
-  },
+  ...(process.env.NODE_ENV === 'production' && {
+    ssl: {
+      rejectUnauthorized: false,
+    },
+  }),
 } as ConnectionOptions;
 
 const startDatabase = async (): Promise<void> => {

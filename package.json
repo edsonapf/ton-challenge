@@ -9,6 +9,7 @@
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
     "typeorm": "ts-node ./node_modules/typeorm/cli.js",
     "start": "yarn build && node build/src/index.js",
+    "start:docker": "node build/src/index.js",
     "test": "jest"
   },
   "devDependencies": {

@@ -1,6 +1,6 @@
-FROM node:lts-alpine
+FROM node:16
 
-ARG API_PORT
+ARG PORT
 
 WORKDIR /app
 
@@ -10,4 +10,4 @@ RUN yarn install
 
 COPY . .
 
-EXPOSE $API_PORT
+EXPOSE $PORT

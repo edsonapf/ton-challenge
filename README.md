@@ -2,7 +2,9 @@
 
 This project was developed based on challenge requirements.
 
-The project is an api developed in NodeJs that can create and find an user, and beside this, get and increment the total of visits in a specific url using countapi.
+The project is an api developed in NodeJs, Postgres and Docker.
+
+You can use the api to create and find an user, and beside this, get and increment the total of visits in a specific url using countapi.
 
 ## Requirements
 

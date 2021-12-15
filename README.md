@@ -79,4 +79,8 @@ docker-compose up -d
   "totalVisits": 10
 }
 ```
+## URLs
 
+You can access the api is the following base url.
+
+https://ton-challenge-api.herokuapp.com

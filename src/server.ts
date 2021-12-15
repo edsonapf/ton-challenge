@@ -9,7 +9,7 @@ import { users, visits } from './routes';
 require('dotenv').config();
 
 const initiateServer = () => {
-  const PORT = process.env.API_PORT || 3000;
+  const PORT = process.env.API_PORT || 80;
   const server = express();
 
   server.use(express.json());
